@@ -23,6 +23,8 @@ import {
   endpoint,
   formatTimeFromNow,
   hideUnAvailableProxies,
+  iconHeight,
+  iconMarginRight,
   proxiesOrderingType,
   renderProxiesInTwoColumns,
   useConnections,
@@ -189,9 +191,18 @@ export default () => {
                 const title = (
                   <>
                     <div class="flex items-center justify-between pr-8">
-                      <div class="flex items-center gap-2">
+                      <div class="flex items-center">
+                        <Show when={proxyGroup.icon}>
+                          <img
+                            src={proxyGroup.icon}
+                            style={{
+                              height: `${iconHeight()}px`,
+                              'margin-right': `${iconMarginRight()}px`,
+                            }}
+                          />
+                        </Show>
                         <span>{proxyGroup.name}</span>
-                        <div class="badge badge-sm">
+                        <div class="badge badge-sm ml-2">
                           {proxyGroup.all?.length}
                         </div>
                       </div>

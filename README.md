@@ -129,7 +129,3 @@ pnpm serve
 
 - [SolidJS](https://github.com/solidjs/solid)
 - [daisyUI](https://github.com/saadeghi/daisyui)
-
-```js
-https://github.com/MetaCubeX/metacubexd
-```

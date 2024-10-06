@@ -1,5 +1,47 @@
 # Changelog
 
+## [1.151.0](https://github.com/MetaCubeX/metacubexd/compare/v1.150.0...v1.151.0) (2024-10-01)
+
+
+### Features
+
+* config for icon height and margin-right ([#1041](https://github.com/MetaCubeX/metacubexd/issues/1041)) ([bf26a53](https://github.com/MetaCubeX/metacubexd/commit/bf26a539bce4a995bf254f1653d98c3b5f1c0a22))
+
+## [1.150.0](https://github.com/MetaCubeX/metacubexd/compare/v1.149.0...v1.150.0) (2024-09-24)
+
+
+### Features
+
+* proxy group icon ([#1023](https://github.com/MetaCubeX/metacubexd/issues/1023)) ([0b1d472](https://github.com/MetaCubeX/metacubexd/commit/0b1d472d62734cba0bb75efa6acc787957b571c6))
+
+## [1.149.0](https://github.com/MetaCubeX/metacubexd/compare/v1.148.1...v1.149.0) (2024-09-14)
+
+
+### Features
+
+* reconnect ws when logs level changed ([#1003](https://github.com/MetaCubeX/metacubexd/issues/1003)) ([246a1ac](https://github.com/MetaCubeX/metacubexd/commit/246a1ac053ef56a1930d3ad2ae3bd0784e01c513))
+
+## [1.148.1](https://github.com/MetaCubeX/metacubexd/compare/v1.148.0...v1.148.1) (2024-09-12)
+
+
+### Bug Fixes
+
+* proxy group ipv6 test failed ([#996](https://github.com/MetaCubeX/metacubexd/issues/996)) ([c43b84b](https://github.com/MetaCubeX/metacubexd/commit/c43b84b1149939bf604e6798931f221fa191bc6b))
+
+## [1.148.0](https://github.com/MetaCubeX/metacubexd/compare/v1.147.0...v1.148.0) (2024-09-08)
+
+
+### Features
+
+* make persisted for ipv6 result ([#983](https://github.com/MetaCubeX/metacubexd/issues/983)) ([2078051](https://github.com/MetaCubeX/metacubexd/commit/2078051d7c8433ceda4240d41952cff32308990c))
+
+## [1.147.0](https://github.com/MetaCubeX/metacubexd/compare/v1.146.2...v1.147.0) (2024-08-29)
+
+
+### Features
+
+* optimize setup form ([#960](https://github.com/MetaCubeX/metacubexd/issues/960)) ([00ab6d4](https://github.com/MetaCubeX/metacubexd/commit/00ab6d46458c20d41b8b8080a8f57736d600d8d0))
+
 ## [1.146.2](https://github.com/MetaCubeX/metacubexd/compare/v1.146.1...v1.146.2) (2024-08-26)
 
 
