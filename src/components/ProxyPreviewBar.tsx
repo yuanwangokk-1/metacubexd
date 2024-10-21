@@ -68,7 +68,9 @@ export const ProxyPreviewBar = (props: {
         />
       </div>
 
-      <Latency name={props.now} />
+      <Show when={props.now}>
+        <Latency proxyName={props.now!} />
+      </Show>
     </div>
   )
 }

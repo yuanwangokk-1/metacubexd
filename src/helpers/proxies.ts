@@ -1,26 +1,37 @@
-import { PROXIES_ORDERING_TYPE } from '~/constants'
+import { LATENCY_QUALITY_MAP_HTTP, PROXIES_ORDERING_TYPE } from '~/constants'
 import { latencyQualityMap, useProxies } from '~/signals'
 
 export const formatProxyType = (type = '') => {
   const t = type.toLowerCase()
 
   if (t.includes('shadowsocks')) {
-    return t.replace('shadowsocks', 'ss') // for both ss and ssr
+    return t.replace('shadowsocks', 'SS') // for both ss and ssr
   }
 
   if (t.includes('hysteria')) {
-    return t.replace('hysteria', 'hy')
+    return t.replace('hysteria', 'HY')
   }
 
   if (t === 'wireguard') {
-    return 'wg'
+    return 'WG'
   }
 
   return t
 }
 
+export const getLatencyClassName = (latency: LATENCY_QUALITY_MAP_HTTP) => {
+  if (latency > latencyQualityMap().HIGH) {
+    return 'text-error'
+  } else if (latency > latencyQualityMap().MEDIUM) {
+    return 'text-warning'
+  } else if (latency === LATENCY_QUALITY_MAP_HTTP.NOT_CONNECTED) {
+    return 'text-gray'
+  } else {
+    return 'text-success'
+  }
+}
+
 export const filterSpecialProxyType = (type = '') => {
-  const t = type.toLowerCase()
   const conditions = [
     'selector',
     'direct',
@@ -31,7 +42,7 @@ export const filterSpecialProxyType = (type = '') => {
     'relay',
   ]
 
-  return !conditions.includes(t)
+  return !conditions.includes(type.toLowerCase())
 }
 
 export const sortProxiesByOrderingType = (

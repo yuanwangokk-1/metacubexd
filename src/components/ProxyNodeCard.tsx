@@ -1,80 +1,140 @@
-import { IconBrandSpeedtest } from '@tabler/icons-solidjs'
+import Tooltip from '@corvu/tooltip'
+import { IconCircleCheckFilled } from '@tabler/icons-solidjs'
+import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
-import { Button, IPv6Support, Latency } from '~/components'
-import { filterSpecialProxyType, formatProxyType } from '~/helpers'
-import { useProxies } from '~/signals'
+import { Latency } from '~/components'
+import {
+  filterSpecialProxyType,
+  formatProxyType,
+  getLatencyClassName,
+} from '~/helpers'
+import { rootElement, useProxies } from '~/signals'
 
 export const ProxyNodeCard = (props: {
   proxyName: string
   isSelected?: boolean
   onClick?: () => void
 }) => {
-  const { proxyLatencyTest, proxyLatencyTestingMap } = useProxies()
   const { proxyName, isSelected, onClick } = props
-  const { proxyNodeMap } = useProxies()
+  const { proxyNodeMap, proxyLatencyTest, proxyLatencyTestingMap } =
+    useProxies()
   const proxyNode = createMemo(() => proxyNodeMap()[proxyName])
-  const specialType = () =>
-    filterSpecialProxyType(proxyNode()?.type)
-      ? proxyNode()?.xudp
-        ? 'xudp'
-        : proxyNode()?.udp
-          ? 'udp'
-          : null
-      : null
+
+  const specialTypes = createMemo(() => {
+    if (!filterSpecialProxyType(proxyNode()?.type)) return null
+
+    return `(${[
+      proxyNode().xudp && 'xudp',
+      proxyNode().udp && 'udp',
+      proxyNode().tfo && 'TFO',
+    ]
+      .filter(Boolean)
+      .join(' / ')})`
+  })
+
+  const title = createMemo(() =>
+    [proxyName, specialTypes()].filter(Boolean).join(' - '),
+  )
 
   return (
-    <div
-      class={twMerge(
-        'border-neutral-focus card card-bordered tooltip-bottom flex flex-col justify-between gap-1 bg-neutral p-2 text-neutral-content',
-        isSelected &&
-          'bg-gradient-to-br from-primary to-secondary text-primary-content',
-        onClick && 'cursor-pointer',
-      )}
-      onClick={onClick}
-      title={proxyName}
+    <Tooltip
+      placement="top"
+      floatingOptions={{
+        autoPlacement: true,
+        shift: true,
+        offset: 10,
+      }}
     >
-      <div class="flex items-center justify-between gap-2">
-        <span class="break-all text-left text-sm">{proxyName}</span>
+      <Tooltip.Anchor
+        class={twMerge(
+          'card bg-neutral text-neutral-content',
+          isSelected &&
+            'bg-gradient-to-br from-primary to-secondary text-primary-content',
+          onClick && 'cursor-pointer',
+        )}
+        title={title()}
+      >
+        <Tooltip.Trigger>
+          <div class="card-body gap-1 space-y-1 p-2.5" onClick={onClick}>
+            <h2 class="card-title line-clamp-1 break-all text-start text-sm">
+              {proxyName}
+            </h2>
 
-        <span class="flex items-center gap-1">
-          <IPv6Support name={props.proxyName} />
-          <Button
-            class="btn-circle btn-ghost h-auto min-h-0 w-auto"
-            icon={
-              <IconBrandSpeedtest
-                size={20}
+            <div class="card-actions items-center justify-between gap-1">
+              <div class="badge badge-secondary px-1 text-xs font-bold capitalize">
+                {formatProxyType(proxyNode()?.type)}
+              </div>
+
+              <Latency
+                proxyName={props.proxyName}
                 class={twMerge(
-                  proxyLatencyTestingMap()[proxyName] &&
-                    'animate-pulse text-success',
+                  proxyLatencyTestingMap()[proxyName] && 'animate-pulse',
                 )}
+                onClick={(e) => {
+                  e.stopPropagation()
+
+                  void proxyLatencyTest(proxyName, proxyNode().provider)
+                }}
               />
-            }
-            onClick={(e) => {
-              e.stopPropagation()
+            </div>
+          </div>
+        </Tooltip.Trigger>
 
-              void proxyLatencyTest(proxyName, proxyNode().provider)
-            }}
-          />
-        </span>
-      </div>
+        <Tooltip.Portal mount={rootElement()}>
+          <Tooltip.Content class="z-50">
+            <Tooltip.Arrow class="text-neutral" />
 
-      <div class="flex items-center justify-between gap-1">
-        <div
-          class={twMerge(
-            'text-xs text-slate-500',
-            isSelected && 'text-primary-content',
-          )}
-        >
-          {formatProxyType(proxyNode()?.type)}
+            <div class="flex flex-col items-center gap-2 rounded-box bg-neutral bg-gradient-to-br from-primary to-secondary p-2.5 text-primary-content shadow-lg">
+              <h2 class="text-lg font-bold">{proxyName}</h2>
 
-          <Show when={specialType()}>{` :: ${specialType()}`}</Show>
-        </div>
+              <div class="w-full text-xs uppercase">
+                {specialTypes()}
+              </div>
 
-        <Latency
-          name={props.proxyName}
-          class={twMerge(isSelected && 'badge badge-sm px-1')}
-        />
-      </div>
-    </div>
+              <ul class="timeline timeline-vertical timeline-compact timeline-snap-icon">
+                <For each={proxyNode().latencyTestHistory}>
+                  {(latencyTestResult, index) => (
+                    <li>
+                      <Show when={index() > 0}>
+                        <hr />
+                      </Show>
+
+                      <div class="timeline-start space-y-2">
+                        <time class="text-sm italic">
+                          {dayjs(latencyTestResult.time).format(
+                            'YYYY-MM-DD HH:mm:ss',
+                          )}
+                        </time>
+
+                        <div
+                          class={twMerge(
+                            'badge block',
+                            getLatencyClassName(latencyTestResult.delay),
+                          )}
+                        >
+                          {latencyTestResult.delay || '---'}
+                        </div>
+                      </div>
+
+                      <div class="timeline-middle">
+                        <IconCircleCheckFilled class="size-4" />
+                      </div>
+
+                      <Show
+                        when={
+                          index() !== proxyNode().latencyTestHistory.length - 1
+                        }
+                      >
+                        <hr />
+                      </Show>
+                    </li>
+                  )}
+                </For>
+              </ul>
+            </div>
+          </Tooltip.Content>
+        </Tooltip.Portal>
+      </Tooltip.Anchor>
+    </Tooltip>
   )
 }

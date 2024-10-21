@@ -21,8 +21,6 @@ import {
   setProxiesPreviewType,
   setRenderProxiesInTwoColumns,
   setUrlForLatencyTest,
-  setUrlIPv6SupportTest,
-  urlForIPv6SupportTest,
   urlForLatencyTest,
 } from '~/signals'
 
@@ -76,16 +74,6 @@ export const ProxiesSettingsModal: Component<{
           />
         </div>
 
-        <div class="flex flex-col">
-          <ConfigTitle withDivider>{t('urlForIPv6SupportTest')}</ConfigTitle>
-
-          <input
-            class="input input-bordered w-full"
-            value={urlForIPv6SupportTest()}
-            onChange={(e) => setUrlIPv6SupportTest(e.target.value?.trim())}
-          />
-        </div>
-
         <div>
           <ConfigTitle withDivider>{t('proxiesSorting')}</ConfigTitle>
 
@@ -107,7 +95,7 @@ export const ProxiesSettingsModal: Component<{
         </div>
 
         <div>
-          <ConfigTitle withDivider>{t('hideUnAvailableProxies')}</ConfigTitle>
+          <ConfigTitle withDivider>{t('hideUnavailableProxies')}</ConfigTitle>
 
           <div class="flex w-full justify-center">
             <input

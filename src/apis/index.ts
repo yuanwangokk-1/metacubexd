@@ -11,6 +11,22 @@ import {
   RuleProvider,
 } from '~/types'
 
+export const checkEndpointAPI = (url: string, secret: string) =>
+  ky
+    .get(url, {
+      headers: secret
+        ? {
+            Authorization: `Bearer ${secret}`,
+          }
+        : {},
+    })
+    .then(({ ok }) => ok)
+    .catch((err) => {
+      const { message } = err as Error
+
+      toast.error(message)
+    })
+
 export const closeAllConnectionsAPI = () => {
   const request = useRequest()
 
@@ -232,39 +248,42 @@ export const updateRuleProviderAPI = (providerName: string) => {
 }
 
 type ReleaseAPIResponse = {
+  tag_name: string
   assets: { name: string }[]
 }
 
-export const isUpdateAvailableAPI = async (versionResponse: string) => {
-  const repositoryURL = 'https://api.github.com/repos/MetaCubeX/mihomo'
-  const match = /(alpha|beta|meta)-?(\w+)/.exec(versionResponse)
+export const isFrontendUpdateAvailableAPI = async (currentVersion: string) => {
+  const repositoryURL = 'https://api.github.com/repos/MetaCubeX/metacubexd'
 
-  if (!match) {
-    return false
+  const { tag_name } = await ky
+    .get(`${repositoryURL}/releases/latest`)
+    .json<ReleaseAPIResponse>()
+
+  return tag_name !== currentVersion
+}
+
+export const isBackendUpdateAvailableAPI = async (currentVersion: string) => {
+  const repositoryURL = 'https://api.github.com/repos/MetaCubeX/mihomo'
+  const match = /(alpha|beta|meta)-?(\w+)/.exec(currentVersion)
+
+  if (!match) return false
+
+  const check = async (url: string) => {
+    const { assets } = await ky
+      .get(`${repositoryURL}${url}`)
+      .json<ReleaseAPIResponse>()
+
+    const alreadyLatest = assets.some(({ name }) => name.includes(version))
+
+    return !alreadyLatest
   }
 
   const channel = match[1],
     version = match[2]
 
-  if (channel === 'meta') {
-    const { assets } = await ky
-      .get(`${repositoryURL}/releases/latest`)
-      .json<ReleaseAPIResponse>()
+  if (channel === 'meta') return await check('/releases/latest')
 
-    const alreadyLatest = assets.some(({ name }) => name.includes(version))
-
-    return !alreadyLatest
-  }
-
-  if (channel === 'alpha') {
-    const { assets } = await ky
-      .get(`${repositoryURL}/releases/tags/Prerelease-Alpha`)
-      .json<ReleaseAPIResponse>()
-
-    const alreadyLatest = assets.some(({ name }) => name.includes(version))
-
-    return !alreadyLatest
-  }
+  if (channel === 'alpha') return await check('/releases/tags/Prerelease-Alpha')
 
   return false
 }

@@ -1,3 +1,7 @@
+```js
+https://github.com/MetaCubeX/metacubexd
+```
+
 # metacubexd
 
 Mihomo Dashboard, The Official One, XD
