@@ -66,8 +66,8 @@ importers:
         specifier: ^0.14.10
         version: 0.14.10(solid-js@1.9.2)
       '@tabler/icons-solidjs':
-        specifier: ^3.19.0
-        version: 3.19.0(solid-js@1.9.2)
+        specifier: ^3.21.0
+        version: 3.21.0(solid-js@1.9.2)
       '@tanstack/match-sorter-utils':
         specifier: ^8.19.4
         version: 8.19.4
@@ -1062,10 +1062,6 @@ packages:
     resolution: {integrity: sha512-4Bfj15dVJdoy3RfZmmo86RK1Fwzn6SstsvK9JS+BaVKqC6QQQQyXekNaC+g+LKNgkQ+2VhGAzm6hO40AhMR3zQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/js@9.12.0':
-    resolution: {integrity: sha512-eohesHH8WFRUprDNyEREgqP6beG6htMeUYeCpkEgBCieCMme5r9zFWjzAJp//9S+Kub4rqE+jXe9Cp1a7IYIIA==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
   '@eslint/js@9.13.0':
     resolution: {integrity: sha512-IFLyoY4d72Z5y/6o/BazFBezupzI/taV8sGumxTAVw3lXG9A6md1Dc34T9s1FoD/an9pJH8RHbAxsaEbBed9lA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1380,13 +1376,13 @@ packages:
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
 
-  '@tabler/icons-solidjs@3.19.0':
-    resolution: {integrity: sha512-wtYft78GxbQvLu/I6XAqBdXGmLsw/oDnniL9/BcFmSQLthtqLEZiq3V7dwF924U364cc/NysTXoWbQMRR45uCA==}
+  '@tabler/icons-solidjs@3.21.0':
+    resolution: {integrity: sha512-g0qk8bzO6KrhQbJjFvyRGfT0ZKtaYk7MBxye6/FukqVoBWcTHOQKwEePXLy69oXm//xUyWkrfA+7WeHRxEf03w==}
     peerDependencies:
       solid-js: ^1.4.7
 
-  '@tabler/icons@3.19.0':
-    resolution: {integrity: sha512-A4WEWqpdbTfnpFEtwXqwAe9qf9sp1yRPvzppqAuwcoF0q5YInqB+JkJtSFToCyBpPVeLxJUxxkapLvt2qQgnag==}
+  '@tabler/icons@3.21.0':
+    resolution: {integrity: sha512-5+GkkmWCr1wgMor5cOF1/YYflTQdc15y10FUikJ3HW8hDiFjfbuoAHJi17FT1vwsr1sA78rkJMn+fDoOOjnnPA==}
 
   '@tanstack/match-sorter-utils@8.19.4':
     resolution: {integrity: sha512-Wo1iKt2b9OT7d+YGhvEPD3DXvPv2etTusIMhMUoG7fbhmxcXCtIjJDEygy91Y2JFlwGyjqiBPRozme7UD8hoqg==}
@@ -4919,8 +4915,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/js@9.12.0': {}
-
   '@eslint/js@9.13.0': {}
 
   '@eslint/object-schema@2.1.4': {}
@@ -5192,12 +5186,12 @@ snapshots:
       magic-string: 0.25.9
       string.prototype.matchall: 4.0.11
 
-  '@tabler/icons-solidjs@3.19.0(solid-js@1.9.2)':
+  '@tabler/icons-solidjs@3.21.0(solid-js@1.9.2)':
     dependencies:
-      '@tabler/icons': 3.19.0
+      '@tabler/icons': 3.21.0
       solid-js: 1.9.2
 
-  '@tabler/icons@3.19.0': {}
+  '@tabler/icons@3.21.0': {}
 
   '@tanstack/match-sorter-utils@8.19.4':
     dependencies:
