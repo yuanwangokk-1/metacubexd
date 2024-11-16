@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.171.0](https://github.com/MetaCubeX/metacubexd/compare/v1.170.0...v1.171.0) (2024-11-13)
+
+
+### Features
+
+* trigger release ([2df7158](https://github.com/MetaCubeX/metacubexd/commit/2df7158f8a1a5b3e81e0ffd68eb1918582002d62))
+
+## [1.170.0](https://github.com/MetaCubeX/metacubexd/compare/v1.169.0...v1.170.0) (2024-11-13)
+
+
+### Features
+
+* dual column for proxies render ([#1152](https://github.com/MetaCubeX/metacubexd/issues/1152)) ([96869c9](https://github.com/MetaCubeX/metacubexd/commit/96869c96c6291456b0720a5248f2cf7fe5630c48))
+
+
+### Bug Fixes
+
+* Fix the available update indicator causing horizontal overflow on mobile. ([#1153](https://github.com/MetaCubeX/metacubexd/issues/1153)) ([ff41847](https://github.com/MetaCubeX/metacubexd/commit/ff41847fd933e64e30c6f7b501e720e0d2fc5158))
+
+## [1.169.0](https://github.com/MetaCubeX/metacubexd/compare/v1.168.0...v1.169.0) (2024-11-01)
+
+
+### Features
+
+* proxy type support i18n ([#1135](https://github.com/MetaCubeX/metacubexd/issues/1135)) ([b0f32b5](https://github.com/MetaCubeX/metacubexd/commit/b0f32b5e5583ca673ade44bbbe058900b4630a74))
+
 ## [1.168.0](https://github.com/MetaCubeX/metacubexd/compare/v1.167.4...v1.168.0) (2024-10-19)
 
 

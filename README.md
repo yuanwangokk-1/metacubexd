@@ -1,4 +1,4 @@
-```js
+```
 https://github.com/MetaCubeX/metacubexd
 ```
 
