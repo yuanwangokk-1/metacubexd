@@ -1,3 +1,3 @@
 ```
-https://github.com/SharzyL/pastebin-worker
+https://github.com/MetaCubeX/metacubexd
 ````
