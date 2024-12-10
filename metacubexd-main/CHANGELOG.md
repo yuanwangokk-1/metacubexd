@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.173.3](https://github.com/MetaCubeX/metacubexd/compare/v1.173.2...v1.173.3) (2024-12-04)
+
+
+### Bug Fixes
+
+* I18n unable to get value for name ([#1206](https://github.com/MetaCubeX/metacubexd/issues/1206)) ([92a2e39](https://github.com/MetaCubeX/metacubexd/commit/92a2e3985d3596b9048dd49fd69987fcadf0e515))
+
+## [1.173.2](https://github.com/MetaCubeX/metacubexd/compare/v1.173.1...v1.173.2) (2024-11-29)
+
+
+### Bug Fixes
+
+* latency not correct when proxy group has custom test url ([#1199](https://github.com/MetaCubeX/metacubexd/issues/1199)) ([23e56cf](https://github.com/MetaCubeX/metacubexd/commit/23e56cfde81fcd0453106e477cdf9e17f98019ae))
+
+## [1.173.1](https://github.com/MetaCubeX/metacubexd/compare/v1.173.0...v1.173.1) (2024-11-27)
+
+
+### Bug Fixes
+
+* latency not correct when set custom url in config ([#1189](https://github.com/MetaCubeX/metacubexd/issues/1189)) ([af30813](https://github.com/MetaCubeX/metacubexd/commit/af3081371d3c6fb7a748b8c9a11cb5dcd5b31dca))
+
+## [1.173.0](https://github.com/MetaCubeX/metacubexd/compare/v1.172.0...v1.173.0) (2024-11-24)
+
+
+### Features
+
+* modes list for sing-box offical ([#1182](https://github.com/MetaCubeX/metacubexd/issues/1182)) ([1ca89fb](https://github.com/MetaCubeX/metacubexd/commit/1ca89fb6c736bcdb4d4b84552828fc7df3fa131d))
+
 ## [1.172.0](https://github.com/MetaCubeX/metacubexd/compare/v1.171.0...v1.172.0) (2024-11-23)
 
 

@@ -269,7 +269,7 @@ const ConfigForm: ParentComponent<{
             <For each={modes()}>
               {(name) => (
                 <option selected={name === configsData()?.mode} value={name}>
-                  {t(name as keyof Dict)}
+                  {t(name as keyof Dict) ?? name}
                 </option>
               )}
             </For>
@@ -472,7 +472,8 @@ const ConfigForXd = () => {
         </div>
 
         <div class="flex flex-col">
-          <div class="py-2 text-center text-lg font-semibold">&nbsp;</div>
+          <ConfigTitle>{endpoint()?.url}</ConfigTitle>
+          
           <Button
             class="btn-info"
             onClick={() => {
