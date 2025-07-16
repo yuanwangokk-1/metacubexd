@@ -1,7 +1,7 @@
 import { makeTimer } from '@solid-primitives/timer'
 import type { ApexOptions } from 'apexcharts'
 import byteSize from 'byte-size'
-import { merge } from 'lodash'
+import { defaultsDeep } from 'lodash'
 import { SolidApexCharts } from 'solid-apexcharts'
 import type { JSX, ParentComponent } from 'solid-js'
 import { DocumentTitle } from '~/components'
@@ -57,7 +57,7 @@ export default () => {
   })
 
   const trafficChartOptions = createMemo<ApexOptions>(() =>
-    merge({ title: { text: t('traffic') } }, DEFAULT_CHART_OPTIONS),
+    defaultsDeep({ title: { text: t('traffic') } }, DEFAULT_CHART_OPTIONS),
   )
 
   const trafficChartSeries = createMemo(() => [
@@ -71,6 +71,25 @@ export default () => {
     },
   ])
 
+  const flowChartOptions = createMemo<ApexOptions>(() => {
+    return defaultsDeep(
+      {
+        title: { text: t('flow') },
+        labels: [t('downloadTotal'), t('uploadTotal')],
+        tooltip: { enabled: true },
+        chart: {
+          animations: { enabled: false },
+        },
+      },
+      DEFAULT_CHART_OPTIONS,
+    )
+  })
+
+  const flowChartSeries = createMemo(() => [
+    latestConnectionMsg()?.downloadTotal || 0,
+    latestConnectionMsg()?.uploadTotal || 0,
+  ])
+
   const memory = useWsRequest<{ inuse: number }>('memory')
 
   createEffect(() => {
@@ -80,7 +99,7 @@ export default () => {
   })
 
   const memoryChartOptions = createMemo<ApexOptions>(() =>
-    merge({ title: { text: t('memory') } }, DEFAULT_CHART_OPTIONS),
+    defaultsDeep({ title: { text: t('memory') } }, DEFAULT_CHART_OPTIONS),
   )
 
   const memoryChartSeries = createMemo(() => [
@@ -92,7 +111,7 @@ export default () => {
       <DocumentTitle>{t('overview')}</DocumentTitle>
 
       <div class="flex flex-col gap-2 lg:h-full">
-        <div class="stats stats-vertical w-full flex-shrink-0 grid-cols-2 bg-gradient-to-br from-primary to-secondary shadow lg:stats-horizontal lg:flex">
+        <div class="stats w-full flex-shrink-0 stats-vertical grid-cols-2 bg-primary shadow lg:flex lg:stats-horizontal">
           <TrafficWidget label={t('upload')}>
             {byteSize(traffic()?.up || 0).toString()}/s
           </TrafficWidget>
@@ -121,9 +140,16 @@ export default () => {
         <div class="flex flex-col gap-2 rounded-box bg-base-300 py-4 lg:flex-row">
           <div class="flex-1">
             <SolidApexCharts
-              type="area"
+              type="line"
               options={trafficChartOptions()}
               series={trafficChartSeries()}
+            />
+          </div>
+          <div class="flex-1">
+            <SolidApexCharts
+              type="pie"
+              options={flowChartOptions()}
+              series={flowChartSeries()}
             />
           </div>
           <div class="flex-1">
@@ -135,7 +161,7 @@ export default () => {
           </div>
         </div>
 
-        <footer class="footer mx-auto mt-4 block rounded-box bg-neutral p-4 text-center text-lg font-bold text-neutral-content">
+        <footer class="mx-auto mt-4 footer block footer-horizontal rounded-box bg-neutral p-4 text-center text-lg font-bold text-neutral-content">
           {endpoint()?.url}
         </footer>
       </div>

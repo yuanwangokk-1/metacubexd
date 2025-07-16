@@ -53,7 +53,6 @@ export const DEFAULT_CHART_OPTIONS: ApexOptions = {
   chart: {
     toolbar: { show: false },
     zoom: { enabled: false },
-    animations: { easing: 'linear' },
   },
   noData: { text: 'Loading...' },
   legend: {
@@ -62,7 +61,6 @@ export const DEFAULT_CHART_OPTIONS: ApexOptions = {
     labels: { colors: 'gray' },
     itemMargin: { horizontal: 32 },
   },
-  dataLabels: { enabled: false },
   grid: { yaxis: { lines: { show: false } } },
   stroke: { curve: 'smooth' },
   tooltip: { enabled: false },
@@ -109,6 +107,7 @@ export enum PROXIES_ORDERING_TYPE {
 export enum LANG {
   EN = 'en-US',
   ZH = 'zh-CN',
+  RU = 'ru-RU',
 }
 
 export enum CONNECTIONS_TABLE_ACCESSOR_KEY {

@@ -38,6 +38,8 @@ export const ProxyNodeCard = (props: {
       .join(' / ')})`
   })
 
+  const isUDP = createMemo(() => proxyNode().xudp || proxyNode().udp)
+
   const title = createMemo(() =>
     [proxyName, specialTypes()].filter(Boolean).join(' - '),
   )
@@ -57,23 +59,34 @@ export const ProxyNodeCard = (props: {
       }}
     >
       <Tooltip.Anchor
+        as="div"
         class={twMerge(
-          'card bg-neutral text-neutral-content',
-          isSelected &&
-            'bg-gradient-to-br from-primary to-secondary text-primary-content',
-          onClick && 'cursor-pointer',
+          'indicator card w-full bg-neutral text-neutral-content',
+          isSelected && 'bg-primary text-primary-content',
         )}
         title={title()}
       >
+        <Show when={isUDP()}>
+          <div class="indicator-item badge badge-xs badge-info">U</div>
+        </Show>
+
         <Tooltip.Trigger>
-          <div class="card-body gap-1 space-y-1 p-2.5" onClick={onClick}>
-            <h2 class="card-title line-clamp-1 break-all text-start text-sm">
+          <div
+            class={twMerge(
+              'card-body gap-1 space-y-1 p-2.5',
+              onClick && 'cursor-pointer',
+            )}
+            onClick={onClick}
+          >
+            <h2 class="card-title line-clamp-1 text-start text-sm break-all">
               {proxyName}
             </h2>
 
-            <div class="card-actions items-center justify-between gap-1">
-              <div class="badge badge-secondary px-1 text-xs font-bold capitalize">
-                {formatProxyType(proxyNode()?.type)}
+            <div class="card-actions items-end justify-between gap-1">
+              <div class="flex flex-col gap-0.5">
+                <div class="text-xs font-semibold uppercase opacity-75">
+                  {formatProxyType(proxyNode()?.type)}
+                </div>
               </div>
 
               <Latency
@@ -101,10 +114,12 @@ export const ProxyNodeCard = (props: {
           <Tooltip.Content class="z-50">
             <Tooltip.Arrow class="text-neutral" />
 
-            <div class="flex flex-col items-center gap-2 rounded-box bg-neutral bg-gradient-to-br from-primary to-secondary p-2.5 text-primary-content shadow-lg">
+            <div class="flex flex-col items-center gap-2 rounded-box bg-primary p-2.5 text-primary-content shadow-lg">
               <h2 class="text-lg font-bold">{proxyName}</h2>
 
-              <div class="w-full text-xs uppercase">{specialTypes()}</div>
+              <Show when={specialTypes()}>
+                <div class="w-full text-xs uppercase">{specialTypes()}</div>
+              </Show>
 
               <ul class="timeline timeline-vertical timeline-compact timeline-snap-icon">
                 <For each={latencyTestHistory}>
